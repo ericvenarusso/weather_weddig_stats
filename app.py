@@ -79,11 +79,11 @@ def create_map(column_position, latitude: float, longitude: float):
     column_position.map(df_map)
 
 
-def create_temperature_area_chart(wedding_weather_df: pd.DataFrame):
+def create_temperature_line_chart(wedding_weather_df: pd.DataFrame):
     temperature_df = wedding_weather_df[
         ["temperature_2m_min", "temperature_2m_max", "time"]
     ]
-    st.area_chart(
+    st.line_chart(
         temperature_df,
         x="time",
         y=["temperature_2m_min", "temperature_2m_max"],
@@ -91,18 +91,18 @@ def create_temperature_area_chart(wedding_weather_df: pd.DataFrame):
     )
 
 
-def create_rain_area_chart(wedding_weather_df: pd.DataFrame):
+def create_rain_line_chart(wedding_weather_df: pd.DataFrame):
     rain_df = wedding_weather_df[["precipitation_hours", "time"]]
-    st.area_chart(
+    st.line_chart(
         rain_df,
         x="time",
         y=["precipitation_hours"],
     )
 
 
-def create_wind_area_chart(wedding_weather_df: pd.DataFrame):
+def create_wind_line_chart(wedding_weather_df: pd.DataFrame):
     wind_df = wedding_weather_df[["windspeed_10m_max", "time"]]
-    st.area_chart(
+    st.line_chart(
         wind_df,
         x="time",
         y=["windspeed_10m_max"],
@@ -130,13 +130,16 @@ def main():
         )
 
         st.markdown("**Min/Max Temperature**")
-        create_temperature_area_chart(wedding_weather_df)
+        create_temperature_line_chart(wedding_weather_df)
 
         st.markdown("**Precipitation Hours**")
-        create_rain_area_chart(wedding_weather_df)
+        create_rain_line_chart(wedding_weather_df)
 
         st.markdown("**Max Wind**")
-        create_wind_area_chart(wedding_weather_df)
+        create_wind_line_chart(wedding_weather_df)
+
+        st.markdown("**Weather Data**")
+        st.table(wedding_weather_df)
 
 
 if __name__ == "__main__":
